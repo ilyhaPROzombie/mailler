@@ -1,0 +1,73 @@
+.form-floating {
+    position: relative;
+
+    // Обёртка CF7 не мешает
+    > .wpcf7-form-control-wrap {
+        display: block;
+    }
+
+    // Поля: высота и паддинги
+    > .wpcf7-form-control-wrap > .form-control,
+    > .wpcf7-form-control-wrap > .form-select {
+        height: calc(3.5rem + 2px);
+        line-height: 1.25;
+        padding: 1rem .75rem;
+    }
+
+    > .wpcf7-form-control-wrap > textarea.form-control {
+        height: 194px;
+        padding: 1rem .75rem;
+    }
+
+    // ★ Label: позиционируем поверх поля ★
+    > label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        height: 100%;
+        padding: 1rem .75rem;
+        overflow: hidden;
+        text-align: start;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        pointer-events: none;
+        border: 1px solid transparent;
+        transform-origin: 0 0;
+        color: #757575;
+        transition: opacity .1s ease-in-out, transform .1s ease-in-out;
+    }
+
+    // ★ Лейбл уходит вверх при фокусе или заполненном поле ★
+    &:focus-within > label,
+    &:has(> .wpcf7-form-control-wrap > .form-control:not(:placeholder-shown)) > label {
+        opacity: .65;
+        transform: scale(.85) translateY(-.5rem) translateX(.15rem);
+    }
+
+    // Увеличенный padding у поля, когда лейбл наверху
+    &:focus-within > .wpcf7-form-control-wrap > .form-control,
+    &:has(> .wpcf7-form-control-wrap > .form-control:not(:placeholder-shown)) > .wpcf7-form-control-wrap > .form-control {
+        padding-top: 1.625rem;
+        padding-bottom: .625rem;
+    }
+}
+
+// Ваш цвет фокуса
+.form-control:focus {
+    color: #757575;
+    background-color: #fff;
+    border-color: #fba3c0;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(247, 71, 128, .25);
+}
+
+// Ошибки CF7
+.wpcf7-not-valid {
+    border-color: #dc3545 !important;
+}
+.wpcf7-not-valid-tip {
+    color: #dc3545;
+    font-size: .85rem;
+    margin-top: .25rem;
+}

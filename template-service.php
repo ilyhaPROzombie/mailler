@@ -1,0 +1,172 @@
+<?php
+/*
+  Template Name: Шаблон страницы Service
+*/
+get_header('pages');
+?>
+
+<!-- Service Start -->
+<div class="container-fluid service py-5">
+  <div class="container py-5">
+    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 900px;">
+      <h4 class="mb-1 text-primary"><?php the_field('os_subtitle') ?></h4>
+      <h1 class="display-5 mb-4"><?php the_field('os_title') ?></h1>
+      <p class="mb-0"><?php the_field('os_description') ?></p>
+    </div>
+
+    <?php if (have_rows('os_repeater')) : ?>
+      <div class="row g-4 justify-content-center">
+        <?php
+        $i = 0;
+        while (have_rows('os_repeater')) : the_row();
+          // delay = 0.1 + 0.2 * ($i % 4)
+          $delay = 0.1 + 0.2 * ($i % 4);
+        ?>
+          <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="<?php echo esc_attr($delay); ?>s">
+            <div class="service-item text-center rounded p-4">
+              <div class="service-icon d-inline-block bg-light rounded p-4 mb-4">
+                <i class="<?php echo esc_attr(get_sub_field('icon_class')); ?> fa-5x text-secondary"></i>
+              </div>
+              <div class="service-content">
+                <h4 class="mb-4"><?php the_sub_field('title'); ?></h4>
+                <p class="mb-4"><?php the_sub_field('description'); ?></p>
+                <a href="<?php echo get_sub_field('button')['url'] ?>" class="btn btn-light rounded-pill text-primary py-2 px-4"><?php echo get_sub_field('button')['title'] ?></a>
+              </div>
+            </div>
+          </div>
+        <?php
+          $i++;
+        endwhile;
+        ?>
+      </div>
+    <?php endif; ?>
+
+  </div>
+</div>
+<!-- Service End -->
+
+
+<!-- FAQ Start -->
+<div class="container-fluid FAQ bg-light overflow-hidden py-5">
+  <div class="container py-5">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.1s">
+        <div class="accordion" id="accordionExample">
+          <?php
+          if (have_rows('faq_repeater')):
+            $total = count(get_field('faq_repeater'));
+            $i = 1;
+            while (have_rows('faq_repeater')) : the_row();
+              $collapse_id = 'collapse-' . $i;
+              $heading_id  = 'heading-' . $i;
+              $is_first    = ($i === 1);
+              $is_last     = ($i === $total);
+              $mb_class    = $is_last ? '' : 'mb-4';
+              $i++; ?>
+              <div class="accordion-item border-0 <?php echo esc_attr($mb_class); ?>">
+                <h2 class="accordion-header" id="<?php echo esc_attr($heading_id); ?>">
+                  <button class="accordion-button <?php echo $is_first ? '' : 'collapsed'; ?> rounded-top" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#<?php echo esc_attr($collapse_id); ?>"
+                    aria-expanded="<?php echo $is_first ? 'true' : 'false'; ?>"
+                    aria-controls="<?php echo esc_attr($collapse_id); ?>">
+                    <?php echo esc_html(get_sub_field('button'));  ?>
+                  </button>
+                </h2>
+                <div id="<?php echo esc_attr($collapse_id); ?>" class="accordion-collapse collapse <?php echo $is_first ? 'show' : ''; ?>" aria-labelledby="<?php echo esc_attr($heading_id); ?>" data-bs-parent="#accordionExample">
+                  <div class="accordion-body my-2">
+                    <h5><?php the_sub_field('title');  ?></h5>
+                    <p><?php the_sub_field('description');  ?></p>
+                  </div>
+                </div>
+              </div>
+
+
+          <?php endwhile;
+          else :
+            echo 'Ошибка, поля не найдены';
+          endif;
+          ?>
+
+        </div>
+      </div>
+      <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.3s">
+        <div class="FAQ-img RotateMoveRight rounded">
+          <img src="<?php the_field('faq_picture') ?>" class="img-fluid w-100" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- FAQ End -->
+
+
+<!-- Pricing Start -->
+<div class="container-fluid price py-5">
+  <div class="container py-5">
+    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 900px;">
+      <h4 class="text-primary"><?php the_field('p_subtitle') ?></h4>
+      <h1 class="display-5 mb-4"><?php the_field('p_title') ?></h1>
+      <p class="mb-0"><?php the_field('p_description') ?></p>
+    </div>
+    <div class="row g-5 justify-content-center">
+      <?php if (have_rows('p_repeater')) : ?>
+        <?php
+        $i = 0;
+        while (have_rows('p_repeater')) : the_row();
+          $i++;
+          $delay = 0.1 + 0.2 * (($i - 1) % 3);
+        ?>
+          <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="<?php echo esc_attr($delay); ?>s">
+            <div class="price-item bg-light rounded text-center">
+
+              <?php if (get_sub_field('is_popular')) : ?>
+                <div class="pice-item-offer">Popular</div>
+              <?php endif; ?>
+
+              <div class="text-center text-<?php echo esc_attr(get_sub_field('plan_style')); ?> border-bottom d-flex flex-column justify-content-center p-4"
+                style="width: 100%; height: 160px;">
+                <p class="fs-2 fw-bold text-uppercase mb-0">
+                  <?php echo esc_html(get_sub_field('plan')); ?>
+                </p>
+                <div class="d-flex justify-content-center">
+                  <strong class="align-self-start"><?php echo esc_html(get_sub_field('currency')); ?></strong>
+                  <p class="mb-0">
+                    <span class="display-5"><?php echo esc_html(get_sub_field('price')); ?></span>
+                    <?php echo esc_html(get_sub_field('period')); ?>
+                  </p>
+                </div>
+              </div>
+
+              <div class="text-start p-5">
+                <?php $total = count(get_sub_field('features'));
+                if (have_rows('features')) :
+                  $j = 1; ?>
+                  <?php while (have_rows('features')) : the_row();
+                    $is_last = ($j === $total);
+                    $mb_class = $is_last ? 'mb-4' : '';
+                  ?>
+                    <p class="<?php echo esc_attr($mb_class) ?>">
+                      <i class="fas fa-<?php echo get_sub_field('is_included') ? 'check text-success' : 'times text-danger'; ?> me-1"></i>
+                      <?php echo esc_html(get_sub_field('feature_text')); ?>
+                    </p>
+                  <?php $j++;
+                  endwhile; ?>
+                <?php endif; ?>
+
+                <a href="<?php echo get_sub_field('button')['url'] ?>" class="btn btn-light rounded-pill py-2 px-5">
+                  <?php echo get_sub_field('button')['title'] ?>
+                </a>
+              </div>
+            </div>
+          </div>
+        <?php
+        endwhile;
+        ?>
+    </div>
+  <?php endif; ?>
+  </div>
+</div>
+<!-- Pricing End -->
+
+<?php get_footer(); ?>
