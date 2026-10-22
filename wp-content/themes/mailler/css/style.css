@@ -530,7 +530,7 @@
     bottom: 100px;
     width: 58px;
     height: 50px;
-    background: url(/wp-content/themes/mailler/img/sty-1.png) center center no-repeat;
+    background: url(https://ilyhaprozombie.github.io/mailler/wp-content/themes/mailler/img/sty-1.png) center center no-repeat;
     animation: RotateMoveSty-3 45s linear infinite;
     transition: 0.5s;
     z-index: -1;
@@ -761,7 +761,7 @@
     width: 80px;
     height: 80px;
     border-radius: 40px;
-    background: url(/wp-content/themes/mailler/img/testimonial-img-2.jpg) center center no-repeat;
+    background: url(https://ilyhaprozombie.github.io/mailler/wp-content/themes/mailler/img/testimonial-img-2.jpg) center center no-repeat;
     animation: TestimonialMoveLeft 100s linear infinite;
     z-index: -1;
 
@@ -775,7 +775,7 @@
     width: 80px;
     height: 80px;
     border-radius: 40px;
-    background: url(/wp-content/themes/mailler/img/testimonial-img-3.jpg) center center no-repeat;
+    background: url(https://ilyhaprozombie.github.io/mailler/wp-content/themes/mailler/img/testimonial-img-3.jpg) center center no-repeat;
     animation: TestimonialMoveRight 100s linear infinite;
     z-index: -1;
 
